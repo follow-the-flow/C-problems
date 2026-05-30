@@ -4,7 +4,7 @@
 #include "Operator.h"
 #include "calc.h"
 int n;
-Value *v[100001];//指向value的指针数组，每一个成员都是value*，抽象类
+Value *v[100001];//指向value的指针数组，每一个成员都是value，抽象类
 std::string s;
 int main()
 {
@@ -37,10 +37,10 @@ int main()
             v[i]=new Multiply(v[a],v[b]) ;
         }
         else if(s == "Print") {
-    int t;
-    std::cin >> t;
-    v[i] = new Print(v[t]);
-    std::cout << v[i]->calc() << std::endl;  // 只在这里输出
+        int t;
+        std::cin >> t;
+        v[i] = new Print(v[t]);//print也算是一个节点
+        std::cout << v[i]->calc() << std::endl;  // 只在这里输出
     }
         else if(s == "Modify") {
         int t, val;
@@ -49,5 +49,6 @@ int main()
         v[i]->calc();  // 立刻执行！
     }
     }
+
 	return 0;
 }

@@ -9,7 +9,7 @@ public:
 int calc() override {
     return val;  // 更清晰
 }
-void setValue(int v) { val = v; } 
+void setValue(int v) { val = v; } //为后面的modify留下修改接口
 };
 
 class Plus: public Operator
@@ -53,11 +53,11 @@ class Modify : public Value {
     Constant *target;  // 必须是 Constant*，才能调用 setValue
     int newVal;
 public:
-    Modify(Constant *t, int v) : target(t), newVal(v) {}
-    
-    int calc() override {
-        target->setValue(newVal);
-        return newVal;
+    Modify(Constant *t, int v) : target(t), newVal(v) {
+        target->setValue(newVal);}
+    //初始化的同时调整一下就可以，和calc操作解耦  
+    int calc() override { 
+        return target->calc();
     }
 };
 #endif
